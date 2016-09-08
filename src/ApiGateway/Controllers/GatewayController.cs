@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiGateway.Models;
+﻿using ApiGateway.Core.Filters;
+using ApiGateway.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiGateway.Controllers
@@ -13,9 +10,14 @@ namespace ApiGateway.Controllers
         // POST api/values
         [HttpPost]
         [Route("gateway/{Method}")]
-        public void Post(ApiRequestModel model)
+        public ApiResponseModel Post(ApiRequestModel model)
         {
+            return null;
+        }
 
+        private void Init()
+        {
+            FilterLoader.Instance.Load();
         }
     }
 }
