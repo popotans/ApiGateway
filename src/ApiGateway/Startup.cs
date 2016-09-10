@@ -1,9 +1,9 @@
 ﻿using System;
 using ApiGateway.Core.Filters;
+using ApiGateway.Core.IoC;
 using ApiGateway.Core.Providers;
 using ApiGateway.Sloth.Providers;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,12 +34,8 @@ namespace ApiGateway
             // Add framework services.
             services.AddMvc();
 
-            var containerBuilder = new ContainerBuilder();
-            //containerBuilder.RegisterModule<DefaultModule>();
-            containerBuilder.RegisterAssemblyTypes();
-            containerBuilder.Populate(services);
-            var container = containerBuilder.Build();
-            return container.Resolve<IServiceProvider>();
+            ObjectContainer.Init(services);
+            return ObjectContainer.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

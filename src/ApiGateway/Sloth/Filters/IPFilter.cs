@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApiGateway.Core.Contexts;
+﻿using ApiGateway.Core.Contexts;
 using ApiGateway.Core.Filters;
 
 namespace ApiGateway.Sloth.Filters

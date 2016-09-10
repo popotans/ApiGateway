@@ -4,12 +4,20 @@ using ApiGateway.Core.Exceptions;
 using ApiGateway.Core.Filters;
 using ApiGateway.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace ApiGateway.Controllers
 {
     [Route("api/[controller]")]
     public class GatewayController : Controller
     {
+        private ILogger<GatewayController> _logger;
+
+        public GatewayController(ILogger<GatewayController> logger)
+        {
+            _logger = logger;
+        }
+
         [HttpPost("{ApiName}")]
         public ApiResponseModel Post(ApiRequestModel model)
         {
@@ -17,6 +25,7 @@ namespace ApiGateway.Controllers
             {
                 try
                 {
+                    _logger.LogDebug("PreRoute");
                     PreRoute();
                 }
                 catch (ApiGatewayException e)

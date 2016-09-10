@@ -1,4 +1,6 @@
-﻿namespace ApiGateway.Core.Models
+﻿using ApiGateway.Core.Exceptions;
+
+namespace ApiGateway.Core.Models
 {
     public class ApiResponseModel
     {
@@ -9,6 +11,12 @@
         {
             StatusCode = statusCode;
             StatusMessage = statusMessage;
+        }
+
+        public ApiResponseModel(ApiGatewayException exception)
+        {
+            StatusCode = exception.Code;
+            StatusMessage = exception.Message;
         }
     }
 }

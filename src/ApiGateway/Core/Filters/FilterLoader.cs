@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Microsoft.Extensions.DependencyModel;
+using ApiGateway.Core.IoC;
 
 namespace ApiGateway.Core.Filters
 {
@@ -12,15 +11,11 @@ namespace ApiGateway.Core.Filters
 
         public static void Load()
         {
-            var libraries = DependencyContext.Default.CompileLibraries;
-            foreach (var library in libraries)
+            var assemblies = ObjectContainer.GetAssemblies();
+            foreach (var assembly in assemblies)
             {
-                if (library.Name.StartsWith("ApiGateway"))
-                {
-                    var assembly = Assembly.Load(new AssemblyName(library.Name));
-                    var filterClasses = assembly.DefinedTypes.Where(i => i.IsAssignableFrom(typeof (IFilter)) && i.IsClass && !i.IsAbstract).Select(i => i.AsType());
-                    Filters.AddRange(filterClasses.Select(i => Activator.CreateInstance<IFilter>()));
-                }
+                var filterClasses = assembly.DefinedTypes.Where(i => i.IsAssignableFrom(typeof (IFilter)) && i.IsClass && !i.IsAbstract).Select(i => i.AsType());
+                Filters.AddRange(filterClasses.Select(i => Activator.CreateInstance<IFilter>()));
             }
         }
 

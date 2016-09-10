@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Threading;
 using ApiGateway.Core.Exceptions;
 using ApiGateway.Core.Models;
@@ -38,7 +37,7 @@ namespace ApiGateway.Core.Contexts
         public T GetProperty<T>(string key) where T : class
         {
             object obj;
-            if (this.TryGetValue(key, out obj))
+            if (TryGetValue(key, out obj))
             {
                 var value = obj as T;
                 return value;
@@ -48,7 +47,7 @@ namespace ApiGateway.Core.Contexts
 
         public void SetProperty(string key, object value)
         {
-            this.AddOrUpdate(key, value, (s, o) => value);
+            AddOrUpdate(key, value, (s, o) => value);
         }
 
         public void Cleanup()
