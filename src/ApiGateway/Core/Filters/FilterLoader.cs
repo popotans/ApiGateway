@@ -10,13 +10,7 @@ namespace ApiGateway.Core.Filters
     {
         private static readonly List<IFilter> Filters = new List<IFilter>();
 
-        public static FilterLoader Instance { get; } = new FilterLoader();
-
-        private FilterLoader()
-        {
-        }
-
-        public void Load()
+        public static void Load()
         {
             var libraries = DependencyContext.Default.CompileLibraries;
             foreach (var library in libraries)
@@ -30,7 +24,7 @@ namespace ApiGateway.Core.Filters
             }
         }
 
-        public List<IFilter> GetFiltersByType(FilterType filterType)
+        public static List<IFilter> GetFiltersByType(FilterType filterType)
         {
             return Filters.Where(i => i.FilterType == filterType).ToList();
         }

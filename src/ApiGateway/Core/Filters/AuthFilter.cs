@@ -1,3 +1,4 @@
+using System.Linq;
 using ApiGateway.Core.Contexts;
 using ApiGateway.Core.Exceptions;
 using ApiGateway.Core.Providers;
@@ -14,7 +15,9 @@ namespace ApiGateway.Core.Filters
         public void Execute()
         {
             var context = RequestContext.Current;
-            if (!_provider.Authenticate(context.ApiName, context.AccessKey))
+            var request = context.Request;
+            var accessKey = request.Form["AccessKey"].SingleOrDefault();
+            if (!_provider.Authenticate(context.RequestModel.ApiName, accessKey))
             {
                 throw new ApiGatewayException(401, "Not Allowed");
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using ApiGateway.Core.Filters;
 using ApiGateway.Core.Providers;
 using ApiGateway.Sloth.Providers;
 using Autofac;
@@ -21,6 +22,8 @@ namespace ApiGateway
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            FilterLoader.Load();
         }
 
         public IConfigurationRoot Configuration { get; }

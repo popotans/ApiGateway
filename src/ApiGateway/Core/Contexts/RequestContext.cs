@@ -1,5 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Threading;
+using ApiGateway.Core.Exceptions;
+using ApiGateway.Core.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace ApiGateway.Core.Contexts
@@ -24,11 +27,13 @@ namespace ApiGateway.Core.Contexts
         {
         }
 
-        public string ApiName { get; set; }
+        public ApiRequestModel RequestModel { get; set; }
 
-        public string AccessKey { get; set; }
+        public ApiResponseModel ResponseModel { get; set; }
 
         public HttpRequest Request { get; set; }
+
+        public ApiGatewayException Exception { get; set; }
 
         public T GetProperty<T>(string key) where T : class
         {
@@ -44,6 +49,11 @@ namespace ApiGateway.Core.Contexts
         public void SetProperty(string key, object value)
         {
             this.AddOrUpdate(key, value, (s, o) => value);
+        }
+
+        public void Cleanup()
+        {
+            _instance.Dispose();
         }
     }
 }
