@@ -11,7 +11,7 @@ namespace ApiGateway.Controllers
     [Route("api/[controller]")]
     public class GatewayController : Controller
     {
-        private ILogger<GatewayController> _logger;
+        private readonly ILogger<GatewayController> _logger;
 
         public GatewayController(ILogger<GatewayController> logger)
         {
@@ -32,6 +32,7 @@ namespace ApiGateway.Controllers
                 {
                     Error(e);
                     PostRute();
+                    return RequestContext.Current.ResponseModel;
                 }
 
                 try
@@ -42,6 +43,7 @@ namespace ApiGateway.Controllers
                 {
                     Error(e);
                     PostRute();
+                    return RequestContext.Current.ResponseModel;
                 }
 
                 try
@@ -51,6 +53,7 @@ namespace ApiGateway.Controllers
                 catch (ApiGatewayException e)
                 {
                     Error(e);
+                    return RequestContext.Current.ResponseModel;
                 }
             }
             catch (Exception exception)
@@ -58,7 +61,7 @@ namespace ApiGateway.Controllers
                 Error(new ApiGatewayException(exception, 500, "UNHANDLED_EXCEPTION_" + exception.Source));
             }
 
-            return RequestContext.Current.ResponseModel ?? new ApiResponseModel(500, model.ApiName);
+            return RequestContext.Current.ResponseModel ?? new ApiResponseModel(204, null);
         }
 
         private void PreRoute()

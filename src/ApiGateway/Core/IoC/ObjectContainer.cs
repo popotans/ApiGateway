@@ -19,7 +19,7 @@ namespace ApiGateway.Core.IoC
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterAssemblyModules(_assemblies);
-            containerBuilder.RegisterAssemblyTypes(_assemblies);
+            containerBuilder.RegisterAssemblyTypes(_assemblies).AsImplementedInterfaces();
             containerBuilder.Populate(services);
 
             _container = containerBuilder.Build();
