@@ -1,10 +1,10 @@
 ﻿using System;
-using ApiGateway.Core.Contexts;
-using ApiGateway.Core.Exceptions;
-using ApiGateway.Core.Filters;
-using ApiGateway.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ApiGateway.Core.Models;
+using ApiGateway.Core.Contexts;
+using ApiGateway.Core.Exceptions;
+using ApiGateway.Core;
 
 namespace ApiGateway.Controllers
 {
@@ -62,7 +62,8 @@ namespace ApiGateway.Controllers
             }
             catch (Exception exception)
             {
-                Error(new ApiGatewayException(exception, 500, "UNHANDLED_EXCEPTION_" + exception.Message));
+                var e = exception.InnerException ?? exception;
+                Error(new ApiGatewayException(e, 500, e.Message));
             }
 
             return RequestContext.Current.ResponseModel ?? new ApiResponseModel(204, null);

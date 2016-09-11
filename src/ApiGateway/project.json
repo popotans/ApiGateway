@@ -22,7 +22,9 @@
     "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "Autofac": "4.1.0",
-    "Autofac.Extensions.DependencyInjection": "4.0.0"
+    "Autofac.Extensions.DependencyInjection": "4.0.0",
+    "ApiGateway.Repository": "1.0.0-*",
+    "ApiGateway.Core": "1.0.0-*"
   },
 
   "tools": {

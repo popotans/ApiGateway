@@ -1,7 +1,7 @@
 ﻿using ApiGateway.Core.Contexts;
 using ApiGateway.Core.Filters;
 
-namespace ApiGateway.Sloth.Filters
+namespace ApiGateway.Filters
 {
     public class ParameterVerificationFilter : IFilter
     {

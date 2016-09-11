@@ -1,14 +1,14 @@
 ﻿using System;
-using ApiGateway.Core.Filters;
-using ApiGateway.Core.IoC;
-using ApiGateway.Core.Providers;
-using ApiGateway.Sloth.Providers;
+using ApiGateway.Providers;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ApiGateway.Core.IoC;
+using ApiGateway.Core;
+using ApiGateway.Core.Providers;
 
 namespace ApiGateway
 {
@@ -53,6 +53,7 @@ namespace ApiGateway
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
+            builder.RegisterType<ApiProvider>().As<IApiProvider>();
         }
     }
 }

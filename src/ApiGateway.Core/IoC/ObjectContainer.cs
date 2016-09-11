@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Autofac;
+﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
+using System.Linq;
 
 namespace ApiGateway.Core.IoC
 {

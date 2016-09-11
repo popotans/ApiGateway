@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using ApiGateway.Core.Filters;
 
-namespace ApiGateway.Core.Filters
+namespace ApiGateway.Core
 {
     public class FilterRunner
     {

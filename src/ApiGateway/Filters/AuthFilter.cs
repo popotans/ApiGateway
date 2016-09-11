@@ -1,10 +1,11 @@
-using System.Linq;
 using ApiGateway.Core.Contexts;
 using ApiGateway.Core.Exceptions;
+using ApiGateway.Core.Filters;
 using ApiGateway.Core.IoC;
 using ApiGateway.Core.Providers;
+using System.Linq;
 
-namespace ApiGateway.Core.Filters
+namespace ApiGateway.Filters
 {
     public class AuthFilter : IFilter
     {

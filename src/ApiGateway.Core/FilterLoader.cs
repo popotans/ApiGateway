@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ApiGateway.Core.Filters;
 using ApiGateway.Core.IoC;
 
-namespace ApiGateway.Core.Filters
+namespace ApiGateway.Core
 {
     public class FilterLoader
     {

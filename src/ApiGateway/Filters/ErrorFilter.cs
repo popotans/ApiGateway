@@ -1,7 +1,8 @@
 ﻿using ApiGateway.Core.Contexts;
+using ApiGateway.Core.Filters;
 using ApiGateway.Core.Models;
 
-namespace ApiGateway.Core.Filters
+namespace ApiGateway.Filters
 {
     public class ErrorFilter : IFilter
     {

@@ -1,6 +1,6 @@
 ﻿using ApiGateway.Core.Providers;
 
-namespace ApiGateway.Sloth.Providers
+namespace ApiGateway.Providers
 {
     public class AuthenticationProvider : IAuthenticationProvider
     {
