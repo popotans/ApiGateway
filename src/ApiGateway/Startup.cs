@@ -22,8 +22,6 @@ namespace ApiGateway
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-
-            FilterLoader.Load();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -35,6 +33,8 @@ namespace ApiGateway
             services.AddMvc();
 
             ObjectContainer.Init(services);
+            FilterLoader.Load();
+
             return ObjectContainer.Resolve<IServiceProvider>();
         }
 

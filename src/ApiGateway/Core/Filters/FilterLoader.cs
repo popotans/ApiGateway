@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using ApiGateway.Core.IoC;
 
 namespace ApiGateway.Core.Filters
@@ -14,8 +15,8 @@ namespace ApiGateway.Core.Filters
             var assemblies = ObjectContainer.GetAssemblies();
             foreach (var assembly in assemblies)
             {
-                var filterClasses = assembly.DefinedTypes.Where(i => i.IsAssignableFrom(typeof (IFilter)) && i.IsClass && !i.IsAbstract).Select(i => i.AsType());
-                Filters.AddRange(filterClasses.Select(i => Activator.CreateInstance<IFilter>()));
+                var filterClasses = assembly.DefinedTypes.Where(i => typeof(IFilter).GetTypeInfo().IsAssignableFrom(i) && i.IsClass && !i.IsAbstract).Select(i => i.AsType());
+                Filters.AddRange(filterClasses.Select(i => (IFilter)Activator.CreateInstance(i)));
             }
         }
 

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ApiGateway.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class GatewayController : Controller
     {
         private readonly ILogger<GatewayController> _logger;
@@ -21,6 +21,10 @@ namespace ApiGateway.Controllers
         [HttpPost("{ApiName}")]
         public ApiResponseModel Post(ApiRequestModel model)
         {
+            var context = RequestContext.Current;
+            context.RequestModel = model;
+            context.Request = Request;
+
             try
             {
                 try
@@ -58,7 +62,7 @@ namespace ApiGateway.Controllers
             }
             catch (Exception exception)
             {
-                Error(new ApiGatewayException(exception, 500, "UNHANDLED_EXCEPTION_" + exception.Source));
+                Error(new ApiGatewayException(exception, 500, "UNHANDLED_EXCEPTION_" + exception.Message));
             }
 
             return RequestContext.Current.ResponseModel ?? new ApiResponseModel(204, null);

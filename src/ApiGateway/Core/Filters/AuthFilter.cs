@@ -16,8 +16,6 @@ namespace ApiGateway.Core.Filters
         public void Execute()
         {
             var context = RequestContext.Current;
-            if (RequestContext.Current.RequestModel.ApiName == "test")
-                throw new ApiGatewayException(401, "This is not for TEST");
 
             var accessKey = context.Request.Form["AccessKey"].SingleOrDefault();
             if (!_provider.Authenticate(context.RequestModel.ApiName, accessKey))
