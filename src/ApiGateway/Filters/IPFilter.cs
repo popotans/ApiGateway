@@ -6,7 +6,7 @@ namespace ApiGateway.Filters
     public class IPFilter : IFilter
     {
         public FilterType FilterType => FilterType.Pre;
-        public int FilterOrder => 15;
+        public int FilterOrder => 30;
 
         public void Execute()
         {

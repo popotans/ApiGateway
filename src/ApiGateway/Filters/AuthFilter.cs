@@ -11,7 +11,7 @@ namespace ApiGateway.Filters
         private readonly IAuthenticationProvider _provider = ObjectContainer.Resolve<IAuthenticationProvider>();
 
         public FilterType FilterType => FilterType.Pre;
-        public int FilterOrder => 1;
+        public int FilterOrder => 10;
 
         public void Execute()
         {

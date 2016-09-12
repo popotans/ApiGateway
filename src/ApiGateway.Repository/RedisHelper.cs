@@ -44,19 +44,27 @@ namespace ApiGateway.Repository
             var type = typeof(T);
             var instance = (T) Activator.CreateInstance(type);
             var properties = typeof(T).GetProperties();
-            foreach (var entry in entries)
+            try
             {
-                var property = properties.SingleOrDefault(i => i.Name == entry.Name);
-                property?.SetValue(instance, JsonConvert.DeserializeObject(entry.Value.ToString(), property.PropertyType));
-            }
+                foreach (var entry in entries)
+                {
+                    var property = properties.SingleOrDefault(i => i.Name == entry.Name);
+                    property?.SetValue(instance, JsonConvert.DeserializeObject(entry.Value.ToString(), property.PropertyType));
+                }
 
-            return instance;
+                return instance;
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
     }
 
     public static class CacheKeys
     {
         public const string Api = "api:{0}";
+        public const string User = "user:{0}";
     }
 
     public static class CacheHelper
