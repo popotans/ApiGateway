@@ -32,6 +32,8 @@ namespace ApiGateway
             // Add framework services.
             services.AddMvc();
 
+            services.AddSingleton<IConfiguration>(Configuration);
+
             ObjectContainer.Init(services);
             FilterLoader.Load();
 

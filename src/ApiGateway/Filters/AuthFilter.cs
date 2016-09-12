@@ -3,7 +3,6 @@ using ApiGateway.Core.Exceptions;
 using ApiGateway.Core.Filters;
 using ApiGateway.Core.IoC;
 using ApiGateway.Core.Providers;
-using System.Linq;
 
 namespace ApiGateway.Filters
 {
@@ -18,8 +17,9 @@ namespace ApiGateway.Filters
         {
             var context = RequestContext.Current;
 
-            var accessKey = context.Request.Form["AccessKey"].SingleOrDefault();
-            if (!_provider.Authenticate(context.RequestModel.ApiName, accessKey))
+            var apiName = context.RequestModel.ApiName;
+            var accessKey = context.RequestModel.AccessKey;
+            if (!_provider.Authenticate(apiName, accessKey))
             {
                 throw new ApiGatewayException(401, "Not Allowed");
             }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ApiGateway.Core.IoC;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -13,7 +15,9 @@ namespace ApiGateway.Repository
 
         static Redis()
         {
-            Connection = ConnectionMultiplexer.Connect("127.0.0.1");
+            var configuration = ObjectContainer.Resolve<IConfiguration>();
+            string redisConnectionString = configuration.GetConnectionString("RedisConnection");
+            Connection = ConnectionMultiplexer.Connect(redisConnectionString);
         }
 
         public static IDatabase Db => Connection.GetDatabase(0);
@@ -43,7 +47,7 @@ namespace ApiGateway.Repository
             foreach (var entry in entries)
             {
                 var property = properties.SingleOrDefault(i => i.Name == entry.Name);
-                property?.SetValue(instance, JsonConvert.DeserializeObject(entry.Value, property.PropertyType));
+                property?.SetValue(instance, JsonConvert.DeserializeObject(entry.Value.ToString(), property.PropertyType));
             }
 
             return instance;

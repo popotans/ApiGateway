@@ -2,6 +2,7 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "ApiGateway.Core": "1.0.0-*",
     "ApiGateway.Domain": "1.0.0-*",
     "Microsoft.AspNetCore.Hosting": "1.0.0",
     "Microsoft.Extensions.Configuration": "1.0.0",
